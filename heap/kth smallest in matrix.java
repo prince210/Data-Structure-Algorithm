@@ -54,3 +54,49 @@ class Solution {
         return pos;
     }
 }
+
+
+// heap based solution
+class Node
+{
+    int i;
+    int j;
+    int val;
+    Node(int i,int j,int val)
+    {
+        this.i = i;
+        this.j = j;
+        this.val = val;
+    }
+}
+
+class heapSol {
+    public int kthSmallest(int[][] matrix, int k) {
+        if(matrix == null || matrix.length == 0)
+            return 0;
+        
+        PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>(){
+            public int compare(Node n1,Node n2)
+            {
+                return n1.val - n2.val;
+            }
+        });
+        
+        int n = matrix.length;
+        for(int i = 0;i < n;i++)
+        {
+            pq.add(new Node(i,0,matrix[i][0]));
+        }
+        
+        while(!pq.isEmpty() && k-- > 1)
+        {
+            Node temp = pq.poll();
+            // System.out.println(temp.val);
+            if(temp.j >= n-1)
+                continue;
+            
+            pq.add(new Node(temp.i,temp.j+1,matrix[temp.i][temp.j+1]));
+        }
+        return pq.isEmpty()?-1:pq.poll().val;
+    }
+}
