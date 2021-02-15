@@ -1,3 +1,6 @@
+// question link : https://www.interviewbit.com/problems/next-permutation/
+// Functional problem
+
 public class Solution {
     public int[] nextPermutation(int[] A) 
     {
